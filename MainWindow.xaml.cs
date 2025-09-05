@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,7 +26,7 @@ namespace TD
         {
             InitializeComponent();
             HieddePositions();
-            
+            GameManager.Initialize();
         }
 
         List<Ellipse> VisilePositions = new List<Ellipse>();
