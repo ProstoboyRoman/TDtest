@@ -39,7 +39,7 @@
   <Class Name="TD.GameManager" Collapsed="true">
     <Position X="1" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAgAQAAAAAAAAAAAAAAKAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgAAAAAAgAQAAAAAAAAACAAAAKAAAAAAAAAAAAAA=</HashCode>
       <FileName>GameManager.cs</FileName>
     </TypeIdentifier>
   </Class>
