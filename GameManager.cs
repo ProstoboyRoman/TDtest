@@ -13,7 +13,7 @@ namespace TD
     {
         private static int _gameSpeed = 20;
         private static DispatcherTimer _timer;
-        static List<Enemy> enemieslist = new List<Enemy>();
+        static public List<Enemy> enemieslist = new List<Enemy>();
 
         public static void Initialize()
         {
@@ -36,8 +36,6 @@ namespace TD
         public static void OnTick(object sernder,  EventArgs e)
         {
             AddEnemy();
-
-            
 
         }
         public static void AddEnemy()

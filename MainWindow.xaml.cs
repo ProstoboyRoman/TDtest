@@ -157,7 +157,7 @@ namespace TD
             GameManager.AddEnemy();
 
 
-            foreach (var item in GameManager.DrawEnemy())
+            foreach (var item in GameManager.enemieslist)
             {
                 GameScreen.Children.Add(item.elipse);
             }
