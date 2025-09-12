@@ -28,6 +28,9 @@ namespace TD
         }
 
         List<Ellipse> VisilePositions = new List<Ellipse>();
+        List<Tower> towers = new List<Tower>();
+        List<Enemy> enemies = new List<Enemy>();
+
 
 
         private void HieddePositions()
@@ -56,10 +59,10 @@ namespace TD
         //
         
 
-        private void StartBTN_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Message");
-        }
+        //private void StartBTN_Click(object sender, RoutedEventArgs e)
+        //{
+            //MessageBox.Show("Message");
+        //  }
 
         private void TowerBTN_Click(object sender, RoutedEventArgs e)
         {
@@ -149,7 +152,16 @@ namespace TD
             GoldMineBTN.Content = "Gold Mine";
             TowerBTN.Content = "Tower";
         }
+        private void StartBTN1_Click(object sender, RoutedEventArgs e)
+        {
+            // Zum Test: Einen Enemy hinzufügen
+            Enemy newEnemy = new Enemy(0, 100); // Startposition (x=0, y=100)
+            enemies.Add(newEnemy);              // Enemy speichern
+            GameScreen.Children.Add(newEnemy.Sprite); // Enemy in Spielfeld einfügen
 
-        
+            MessageBox.Show($"Tower: {towers.Count}, Enemies: {enemies.Count}");
+        }
+
+
     }
 }

@@ -41,9 +41,9 @@
                 <RowDefinition Height="70*"/>
                 <RowDefinition Height="90*"/>
             </Grid.RowDefinitions>
-            <Button x:Name="StartBTN" Content="Start" 
+            <Button x:Name="StartBTN1" Content="Spawn Enemy" 
                     HorizontalAlignment="Center" VerticalAlignment="Center" 
-                    Height="36" Width="114" Click="StartBTN_Click"/>
+                    Height="40" Width="120" Click="StartBTN1_Click"/>
             <Button x:Name="TowerBTN" Content="Tower" HorizontalAlignment="Center" 
                     Margin="0,16,0,0" Grid.Row="1" 
                     VerticalAlignment="Top" Height="36" Width="114" Background="#FFDDDDDD" Click="TowerBTN_Click"/>
