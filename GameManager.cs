@@ -16,7 +16,7 @@ namespace TD
 
         public static void Initialize()
         {
-           _timer = new DispatcherTimer();
+            _timer = new DispatcherTimer();
             _timer.Tick += OnTick;
             _timer.Start(); 
 

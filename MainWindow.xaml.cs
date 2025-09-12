@@ -30,6 +30,9 @@ namespace TD
         }
 
         List<Ellipse> VisilePositions = new List<Ellipse>();
+        //List<Tower> towers = new List<Tower>();
+        //List<Enemy> enemieslist = new List<Enemy>();
+        //List<GoldMine> goldminelist = new List<GoldMine>();
 
 
         private void HieddePositions()
@@ -106,7 +109,8 @@ namespace TD
                 
                 ellipse.Stroke = new SolidColorBrush(Colors.Red);
             }
-            else if (GoldMineBTN.Content == "Cancel")
+
+            if (GoldMineBTN.Content == "Cancel")
             {
                 ellipse.Stroke = new SolidColorBrush(Colors.DarkOrange);
             }
@@ -133,16 +137,18 @@ namespace TD
             double x = Canvas.GetLeft(ellipse) + ellipse.Width / 2;
             double y = Canvas.GetTop(ellipse) + ellipse.Height / 2;
 
-            if (TowerBTN.Content != "Tower")
+            if (TowerBTN.Content == "Cancel")
             {
                 // Neuen Tower erstellen
                 Tower newTower = new Tower("Icons/TowerIcon.png", x, y);
                 GameScreen.Children.Add(newTower.RangeCircle);
             }
-            else if (GoldMineBTN.Content != "Gold Mine")
+            else if (GoldMineBTN.Content == "Cancel")
             {
                 GoldMine newGoldmine = new GoldMine(x, y);
                 GameScreen.Children.Add(newGoldmine.RangeCircle);
+                //goldminelist.Add(newGoldmine);
+
             }
 
             
