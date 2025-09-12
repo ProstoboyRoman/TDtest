@@ -8,5 +8,6 @@ namespace TD
     public class Enemy
     {
         int Zahl = 10;
+        public Enemy() { }
     }
 }
