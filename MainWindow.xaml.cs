@@ -31,7 +31,7 @@ namespace TD
 
         List<Ellipse> VisilePositions = new List<Ellipse>();
         List<Tower> towerslist = new List<Tower>();
-        List<Enemy> enemieslist = new List<Enemy>();
+     List<Enemy> enemieslist = new List<Enemy>();
         List<GoldMine> goldminelist = new List<GoldMine>();
 
 
@@ -158,10 +158,10 @@ namespace TD
         {
             // Zum Test: Einen Enemy hinzufügen
             Enemy newEnemy = new Enemy(0, 100); // Startposition (x=0, y=100)
-            enemies.Add(newEnemy);              // Enemy speichern
+            enemieslist.Add(newEnemy);              // Enemy speichern
             GameScreen.Children.Add(newEnemy.Sprite); // Enemy in Spielfeld einfügen
 
-            MessageBox.Show($"Tower: {towers.Count}, Enemies: {enemies.Count}");
+            MessageBox.Show($"Tower: {towerslist.Count}, Enemies: {enemieslist.Count}");
         }
 
 
