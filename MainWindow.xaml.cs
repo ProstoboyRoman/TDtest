@@ -158,10 +158,10 @@ namespace TD
         {
             // Zum Test: Einen Enemy hinzufügen
             Enemy newEnemy = new Enemy(0, 100); // Startposition (x=0, y=100)
-            enemieslist.Add(newEnemy);              // Enemy speichern
+            enemies.Add(newEnemy);              // Enemy speichern
             GameScreen.Children.Add(newEnemy.Sprite); // Enemy in Spielfeld einfügen
 
-            MessageBox.Show($"Tower: {towerslist.Count}, Enemies: {enemieslist.Count}");
+            MessageBox.Show($"Tower: {towers.Count}, Enemies: {enemies.Count}");
         }
 
 
