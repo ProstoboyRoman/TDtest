@@ -10,6 +10,7 @@ namespace TD
 {
     public class Enemy
     {
+
         public Ellipse Sprite { get; private set; }
 
         public Enemy(double x, double y)
@@ -23,5 +24,6 @@ namespace TD
             Canvas.SetLeft(Sprite, x);
             Canvas.SetTop(Sprite, y);
         }
+
     }
 }
