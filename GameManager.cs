@@ -26,6 +26,7 @@ namespace TD
         {   
             _timer.Interval = new TimeSpan(0,0,0,0,_gameSpeed);
         }
+
         private static void GameOver()
         {
             

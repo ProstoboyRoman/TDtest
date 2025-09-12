@@ -30,9 +30,9 @@ namespace TD
         }
 
         List<Ellipse> VisilePositions = new List<Ellipse>();
-        //List<Tower> towers = new List<Tower>();
-        //List<Enemy> enemieslist = new List<Enemy>();
-        //List<GoldMine> goldminelist = new List<GoldMine>();
+        List<Tower> towerslist = new List<Tower>();
+        List<Enemy> enemieslist = new List<Enemy>();
+        List<GoldMine> goldminelist = new List<GoldMine>();
 
 
         private void HieddePositions()
@@ -142,18 +142,14 @@ namespace TD
                 // Neuen Tower erstellen
                 Tower newTower = new Tower("Icons/TowerIcon.png", x, y);
                 GameScreen.Children.Add(newTower.RangeCircle);
+                towerslist.Add(newTower);
             }
             else if (GoldMineBTN.Content == "Cancel")
             {
                 GoldMine newGoldmine = new GoldMine(x, y);
                 GameScreen.Children.Add(newGoldmine.RangeCircle);
-                //goldminelist.Add(newGoldmine);
-
+                goldminelist.Add(newGoldmine);
             }
-
-            
-            
-
             GoldMineBTN.Content = "Gold Mine";
             TowerBTN.Content = "Tower";
         }
