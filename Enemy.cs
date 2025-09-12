@@ -11,18 +11,18 @@ namespace TD
     public class Enemy
     {
 
-        public Ellipse Sprite { get; private set; }
+        public Ellipse elipse { get; private set; }
 
         public Enemy(double x, double y)
         {
-            Sprite = new Ellipse
+            elipse = new Ellipse
             {
                 Width = 20,
                 Height = 20,
                 Fill = Brushes.Red
             };
-            Canvas.SetLeft(Sprite, x);
-            Canvas.SetTop(Sprite, y);
+            Canvas.SetLeft(elipse, x);
+            Canvas.SetTop(elipse, y);
         }
 
     }

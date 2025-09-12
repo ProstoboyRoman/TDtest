@@ -152,12 +152,20 @@ namespace TD
         private void StartBTN1_Click(object sender, RoutedEventArgs e)
         {
             // Zum Test: Einen Enemy hinzufügen
-            Enemy newEnemy = new Enemy(0, 100); // Startposition (x=0, y=100)
-            enemieslist.Add(newEnemy);              // Enemy speichern
-            GameScreen.Children.Add(newEnemy.Sprite); // Enemy in Spielfeld einfügen
+            //Enemy newEnemy = new Enemy(0, 100); // Startposition (x=0, y=100)
 
-            MessageBox.Show($"Tower: {towerslist.Count}, Enemies: {enemieslist.Count}");
+            GameManager.AddEnemy();
+
+
+            foreach (var item in GameManager.DrawEnemy())
+            {
+                GameScreen.Children.Add(item.elipse);
+            }
+            //GameScreen.Children.Add(newEnemy.elipse); // Enemy in Spielfeld einfügen
+
+
         }
+        
 
 
     }

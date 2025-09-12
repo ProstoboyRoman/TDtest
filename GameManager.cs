@@ -11,7 +11,7 @@ namespace TD
 {
     internal static class GameManager
     {
-        private static int _gameSpeed = 2000;
+        private static int _gameSpeed = 20;
         private static DispatcherTimer _timer;
         static List<Enemy> enemieslist = new List<Enemy>();
 
@@ -35,10 +35,19 @@ namespace TD
 
         public static void OnTick(object sernder,  EventArgs e)
         {
-            Enemy newEnemy = new Enemy(0, 100);
+            AddEnemy();
 
+            
+
+        }
+        public static void AddEnemy()
+        {
+            Enemy newEnemy = new Enemy(0, 100);
             enemieslist.Add(newEnemy);
-            GameScreen.Children.Add(newEnemy.Sprite);
+        }
+        public static List<Enemy> DrawEnemy()
+        {
+            return enemieslist;
         }
 
     }
