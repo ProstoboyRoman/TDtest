@@ -13,6 +13,7 @@ namespace TD
     {
         private static int _gameSpeed = 2000;
         private static DispatcherTimer _timer;
+        static List<Enemy> enemieslist = new List<Enemy>();
 
         public static void Initialize()
         {
@@ -34,7 +35,10 @@ namespace TD
 
         public static void OnTick(object sernder,  EventArgs e)
         {
-           
+            Enemy newEnemy = new Enemy(0, 100);
+
+            enemieslist.Add(newEnemy);
+            GameScreen.Children.Add(newEnemy.Sprite);
         }
 
     }
