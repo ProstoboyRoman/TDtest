@@ -62,11 +62,6 @@ namespace TD
         //
         
 
-        //private void StartBTN_Click(object sender, RoutedEventArgs e)
-        //{
-            //MessageBox.Show("Message");
-        //  }
-
         private void TowerBTN_Click(object sender, RoutedEventArgs e)
         {
             if(TowerBTN.Content != "Cancel")
