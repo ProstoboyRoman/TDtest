@@ -12,11 +12,11 @@ namespace TD
     public class Enemy
     {
 
-        public Ellipse Sprite { get; private set; }
+        public Ellipse elipse { get; private set; }
 
         public Enemy(double x, double y)
         {
-            Sprite = new Ellipse
+            elipse = new Ellipse
             {
                 Width = 20,
                 Height = 20,
