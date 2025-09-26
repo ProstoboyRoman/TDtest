@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace TD
 {
@@ -26,12 +27,16 @@ namespace TD
         {
             InitializeComponent();
             HieddePositions();
-            GameManager.Initialize();
+            //GameManager.Initialize(Canvas gameScreen);
+
+            GameManager.Initialize(GameScreen); // Canvas übergebe
+
         }
 
         List<Ellipse> VisilePositions = new List<Ellipse>();
         List<Tower> towerslist = new List<Tower>();
-        List<Enemy> enemieslist = new List<Enemy>();
+        //List<Enemy> enemieslist = new List<Enemy>();
+        //private DispatcherTimer enemyTimer;  // timer für enemy spawns 
         List<GoldMine> goldminelist = new List<GoldMine>();
 
 

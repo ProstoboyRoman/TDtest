@@ -11,22 +11,19 @@ namespace TD
 {
     public class Enemy
     {
+        public Ellipse elipse;
+        public int currentPoint = 0; // Index des nächsten Wegpunkts
 
-        public Ellipse elipse { get; private set; }
-
-        public Enemy(double x, double y)
+        public Enemy(double startX, double startY)
         {
             elipse = new Ellipse
             {
                 Width = 20,
                 Height = 20,
                 Fill = Brushes.Red
-                
-
             };
-            Canvas.SetLeft(Sprite, x - Sprite.Width / 2);
-            Canvas.SetTop(Sprite, y - Sprite.Height / 2);
+            Canvas.SetLeft(elipse, startX);
+            Canvas.SetTop(elipse, startY);
         }
-
     }
 }
