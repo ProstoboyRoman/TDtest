@@ -19,22 +19,27 @@ namespace TD
         private int Range = 100;
         private int Lvl = 1;
 
-        List<Bullets> BulletsList = new List<Bullets>();
+        private double X, Y;
+
+        public List<Bullets> BulletsList = new List<Bullets>();
 
 
         
         public Ellipse CircleBody { get; private set; }
         public Ellipse CircleRange { get; private set; }
 
-        public Tower(string imagePath, double x, double y)
+        public Tower(double x, double y)
         {
+            this.X = x;
+            this.Y = y;
+
             CircleBody = new Ellipse
             {
                 Width = 50,
                 Height = 50,
                 Stroke = Brushes.Blue,
                 StrokeThickness = 2,
-                Fill = new SolidColorBrush(Colors.Black),
+                Fill = new SolidColorBrush(Colors.Black)
 
             };
 
@@ -55,10 +60,14 @@ namespace TD
         }
 
 
-        public void Attack()
+        public Bullets Attack()
         {
-            Bullets newBull = new Bullets();
+            Bullets newBull = new Bullets(X,Y);
             BulletsList.Add(newBull);
+
+            return newBull;
         }
+
+        
     }
 }

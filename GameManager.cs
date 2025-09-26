@@ -38,6 +38,8 @@ namespace TD
 
         public static void OnTick(object sernder,  EventArgs e)
         {
+
+            // NOTE FÜR JUSTIN if(Count % 10 == 0)  timer wird 10 mal langasemer. 
             AddEnemy();
 
         }

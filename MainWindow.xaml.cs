@@ -30,11 +30,6 @@ namespace TD
         }
 
         List<Ellipse> VisilePositions = new List<Ellipse>();
-        //List<Tower> towerslist = new List<Tower>();
-        // List<Enemy> enemieslist = new List<Enemy>();
-        //List<GoldMine> goldminelist = new List<GoldMine>();
-
-
 
         private void HieddePositions()
         {
@@ -73,7 +68,6 @@ namespace TD
             {
                 HieddePositions();
                 TowerBTN.Content = "Tower";
-                //SowCurrrentPositions();
             }
                 
         }
@@ -125,8 +119,7 @@ namespace TD
 
 
             HieddePositions();
-            //VisilePositions.Add(ellipse);
-            //SowCurrrentPositions();
+
             
 
             // Mittelpunkt der Ellipse berechnen
@@ -136,17 +129,18 @@ namespace TD
             if (TowerBTN.Content == "Cancel")
             {
                 // Neuen Tower erstellen
-                Tower newTower = new Tower("Icons/TowerIcon.png", x, y);
+                Tower newTower = new Tower(x, y);
                 GameScreen.Children.Add(newTower.CircleBody);
                 GameScreen.Children.Add(newTower.CircleRange);
-                //towerslist.Add(newTower);
+
+                GameScreen.Children.Add(newTower.Attack().BulletBody);
+
                 GameManager.towerlist.Add(newTower);
             }
             else if (GoldMineBTN.Content == "Cancel")
             {
                 GoldMine newGoldmine = new GoldMine(x, y);
                 GameScreen.Children.Add(newGoldmine.RangeCircle);
-                //goldminelist.Add(newGoldmine);
                 GameManager.goldMines.Add(newGoldmine);
             }
             GoldMineBTN.Content = "Gold Mine";
@@ -164,15 +158,7 @@ namespace TD
             {
                 GameScreen.Children.Add(item.elipse);
             }
-            //GameScreen.Children.Add(newEnemy.elipse); // Enemy in Spielfeld einfügen
-
 
         }
-        /// den position für enemy
-        
-
-
-
-
     }
 }
