@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace TD
@@ -13,14 +14,20 @@ namespace TD
     {
         private static int _gameSpeed = 20;
         private static DispatcherTimer _timer;
+        private static Canvas _gameScreen;   // Referenz auf dein Canvas
 
         static public List<Enemy> enemieslist = new List<Enemy>();
         static public List<Tower> towerlist = new List<Tower>();
         static public List<GoldMine> goldMines = new List<GoldMine>();
 
-        public static void Initialize()
+        public static void Initialize(Canvas gameScreen)
         {
+            _gameScreen = gameScreen;
+
+
             _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(5); // alle 5 Sekunden
+
             _timer.Tick += OnTick;
             _timer.Start(); 
 
@@ -47,6 +54,11 @@ namespace TD
         {
             Enemy newEnemy = new Enemy(0, 100);
             enemieslist.Add(newEnemy);
+
+            if (!_gameScreen.Children.Contains(newEnemy.elipse))
+            {
+                _gameScreen.Children.Add(newEnemy.elipse);
+            }
         }
         public static List<Enemy> DrawEnemy()
         {
