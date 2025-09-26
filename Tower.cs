@@ -16,16 +16,19 @@ namespace TD
         private int Price = 20;
         private int Damage = 1;
         private int AttackSpeed = 1;
-        private int Range = 10;
+        private int Range = 100;
         private int Lvl = 1;
+
+        List<Bullets> BulletsList = new List<Bullets>();
 
 
         
-        public Ellipse RangeCircle { get; private set; }
+        public Ellipse CircleBody { get; private set; }
+        public Ellipse CircleRange { get; private set; }
 
         public Tower(string imagePath, double x, double y)
         {
-            RangeCircle = new Ellipse
+            CircleBody = new Ellipse
             {
                 Width = 50,
                 Height = 50,
@@ -35,9 +38,27 @@ namespace TD
 
             };
 
+            CircleRange = new Ellipse
+            {
+                Width = 50 + Range,
+                Height = 50 + Range,
+                Stroke = Brushes.Gray,
+                StrokeThickness = 1
+            };
 
-            Canvas.SetLeft(RangeCircle, x - RangeCircle.Width / 2);
-            Canvas.SetTop(RangeCircle, y - RangeCircle.Height / 2);
+
+            Canvas.SetLeft(CircleBody, x - CircleBody.Width / 2);
+            Canvas.SetTop(CircleBody, y - CircleBody.Height / 2);
+
+            Canvas.SetLeft(CircleRange, x - CircleRange.Width / 2);
+            Canvas.SetTop(CircleRange, y - CircleRange.Height / 2);
+        }
+
+
+        public void Attack()
+        {
+            Bullets newBull = new Bullets();
+            BulletsList.Add(newBull);
         }
     }
 }

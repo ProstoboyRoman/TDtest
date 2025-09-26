@@ -17,6 +17,8 @@ namespace TD
         private static Canvas _gameScreen;   // Referenz auf dein Canvas
 
         static public List<Enemy> enemieslist = new List<Enemy>();
+        static public List<Tower> towerlist = new List<Tower>();
+        static public List<GoldMine> goldMines = new List<GoldMine>();
 
         public static void Initialize(Canvas gameScreen)
         {
