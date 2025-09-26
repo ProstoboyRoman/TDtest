@@ -13,7 +13,10 @@ namespace TD
     {
         private static int _gameSpeed = 20;
         private static DispatcherTimer _timer;
+
         static public List<Enemy> enemieslist = new List<Enemy>();
+        static public List<Tower> towerlist = new List<Tower>();
+        static public List<GoldMine> goldMines = new List<GoldMine>();
 
         public static void Initialize()
         {

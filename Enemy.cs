@@ -24,8 +24,8 @@ namespace TD
                 
 
             };
-            Canvas.SetLeft(Sprite, x - Sprite.Width / 2);
-            Canvas.SetTop(Sprite, y - Sprite.Height / 2);
+            Canvas.SetLeft(elipse, x - elipse.Width / 2);
+            Canvas.SetTop(elipse, y - elipse.Height / 2);
         }
 
     }
