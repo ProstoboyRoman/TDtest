@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 
 namespace TD
 {
-    internal class Tower
+    public class Tower
     {
         private int Price = 20;
         private int Damage = 1;

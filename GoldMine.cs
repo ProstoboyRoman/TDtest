@@ -9,7 +9,7 @@ using System.Windows.Shapes;
 
 namespace TD
 {
-    internal class GoldMine
+    public class GoldMine
     {
         private int Price = 10;
         private int Production = 5;

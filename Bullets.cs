@@ -9,7 +9,7 @@ using System.Windows.Shapes;
 
 namespace TD
 {
-    internal class Bullets
+    public class Bullets
     {
         private int BulletSpeed = 10;
         private int BulletDamage = 10;

@@ -27,10 +27,29 @@ namespace TD
         {
             InitializeComponent();
             HieddePositions();
-            //GameManager.Initialize(Canvas gameScreen);
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(5); // alle 5 Sekunden
 
-            GameManager.Initialize(GameScreen); // Canvas übergebe
+            _timer.Tick += OnTick;
+            _timer.Start();
+        }
 
+        private static DispatcherTimer _timer;
+        private static int _gameSpeed = 20;
+
+         public List<Enemy> enemieslist = new List<Enemy>();
+         public List<Tower> towerlist = new List<Tower>();
+         public List<GoldMine> goldMines = new List<GoldMine>();
+
+        private static void SpeedManager(int pDeltaSpeed)
+        {
+            _timer.Interval = new TimeSpan(0, 0, 0, 0, _gameSpeed);
+        }
+
+        public static void OnTick(object sernder, EventArgs e)
+        {
+
+            // NOTE FÜR JUSTIN if(Count % 10 == 0)  timer wird 10 mal langasemer. 
         }
 
         List<Ellipse> VisilePositions = new List<Ellipse>();
@@ -60,6 +79,7 @@ namespace TD
         // --------------- EVENTS --------------------
         //
         
+
 
         private void TowerBTN_Click(object sender, RoutedEventArgs e)
         {
@@ -139,13 +159,13 @@ namespace TD
 
                 GameScreen.Children.Add(newTower.Attack().BulletBody);
 
-                GameManager.towerlist.Add(newTower);
+                towerlist.Add(newTower);
             }
             else if (GoldMineBTN.Content == "Cancel")
             {
                 GoldMine newGoldmine = new GoldMine(x, y);
                 GameScreen.Children.Add(newGoldmine.RangeCircle);
-                GameManager.goldMines.Add(newGoldmine);
+                goldMines.Add(newGoldmine);
             }
             GoldMineBTN.Content = "Gold Mine";
             TowerBTN.Content = "Tower";
@@ -155,10 +175,7 @@ namespace TD
             // Zum Test: Einen Enemy hinzufügen
             //Enemy newEnemy = new Enemy(0, 100); // Startposition (x=0, y=100)
 
-            GameManager.AddEnemy();
-
-
-            foreach (var item in GameManager.enemieslist)
+            foreach (var item in enemieslist)
             {
                 GameScreen.Children.Add(item.elipse);
             }
