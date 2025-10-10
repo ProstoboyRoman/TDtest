@@ -35,7 +35,7 @@ namespace TD
 
         public void MoveBullet()
         {
-
+            X = X + BulletSpeed;
         }
         
     }
