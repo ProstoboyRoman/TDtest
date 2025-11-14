@@ -21,6 +21,8 @@ namespace TD
         private int Lvl = 1;
 
         private double X, Y;
+ 
+        public List<Bullets> BulletsList = new List<Bullets>();
 
         private List<Bullets> BulletsList = new List<Bullets>();
 
@@ -43,6 +45,7 @@ namespace TD
             }
                     
         }
+
         
 
 

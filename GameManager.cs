@@ -17,13 +17,5 @@ namespace TD
     }
 }
 
-            if (!_gameScreen.Children.Contains(newEnemy.elipse))
-            {
-                _gameScreen.Children.Add(newEnemy.elipse);
-            }
-        }
-        public static List<Enemy> DrawEnemy()//gibt die enemy list zurück
-        {
-            return enemieslist;
-        }
+         
 
