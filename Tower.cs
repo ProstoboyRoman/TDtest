@@ -13,17 +13,40 @@ namespace TD
 {
     public class Tower
     {
+        // felder 
         private int Price = 20;
-        private int Damage = 1;
-        private int AttackSpeed = 1;
+        private int Damage;
+        private int AttackSpeed;
         private int Range = 100;
         private int Lvl = 1;
 
         private double X, Y;
 
-        public List<Bullets> BulletsList = new List<Bullets>();
+        private List<Bullets> BulletsList = new List<Bullets>();
 
+        public int damage
+        {
+            set
+            {
+                Damage = value;
+                if (Damage < 0) 
+                    Damage = 0; // z.b schaden geht nicht unter 0
+            }
+        }
+        public int attackspeed
+        {
+            set 
+            {
+                AttackSpeed = value;
+                if (AttackSpeed < 1) 
+                    AttackSpeed = 1; // mindestwert muus 1
+            }
+                    
+        }
         
+
+
+
         public Ellipse CircleBody { get; private set; }
         public Ellipse CircleRange { get; private set; }
 
