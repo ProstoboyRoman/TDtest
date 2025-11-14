@@ -47,9 +47,9 @@ namespace TD
             _timer.Interval = new TimeSpan(0, 0, 0, 0, _gameSpeed);
         }
 
-        public static void OnTick(object sernder, EventArgs e)
+        public void OnTick(object sernder, EventArgs e)
         {
-            //EnemySpawn();
+            EnemySpawn();
             // NOTE FÜR JUSTIN if(Count % 10 == 0)  timer wird 10 mal langasemer. 
         }
 
