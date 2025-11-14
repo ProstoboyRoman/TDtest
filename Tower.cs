@@ -23,7 +23,6 @@ namespace TD
 
         public List<Bullets> BulletsList = new List<Bullets>();
 
-
         
         public Ellipse CircleBody { get; private set; }
         public Ellipse CircleRange { get; private set; }

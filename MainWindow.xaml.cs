@@ -41,6 +41,7 @@ namespace TD
          public List<Tower> towerlist = new List<Tower>();
          public List<GoldMine> goldMines = new List<GoldMine>();
 
+         Enemy enemy = new Enemy(100,100);
         private static void SpeedManager(int pDeltaSpeed)
         {
             _timer.Interval = new TimeSpan(0, 0, 0, 0, _gameSpeed);
@@ -48,12 +49,23 @@ namespace TD
 
         public static void OnTick(object sernder, EventArgs e)
         {
-
+            EnemySpawn();
             // NOTE FÜR JUSTIN if(Count % 10 == 0)  timer wird 10 mal langasemer. 
         }
 
         List<Ellipse> VisilePositions = new List<Ellipse>();
 
+
+        public void EnemySpawn()
+        {
+            Enemy newEnemy = new Enemy(0, 100); // Startposition (x=0, y=100)
+
+            // Enemy zur Liste hinzufügen
+            enemieslist.Add(newEnemy);
+
+            // Den Enemy-Kreis zur Canvas (Spielfeld) hinzufügen
+            GameScreen.Children.Add(newEnemy.elipse);
+        }
         private void HieddePositions()
         {
             Position1.Visibility = Visibility.Hidden;
@@ -64,7 +76,7 @@ namespace TD
             Position1.Visibility = Visibility.Visible;
             Position2.Visibility = Visibility.Visible;
         }
-
+            
 
 
         private void SowCurrrentPositions()
@@ -175,10 +187,7 @@ namespace TD
             // Zum Test: Einen Enemy hinzufügen
             //Enemy newEnemy = new Enemy(0, 100); // Startposition (x=0, y=100)
 
-            foreach (var item in enemieslist)
-            {
-                GameScreen.Children.Add(item.elipse);
-            }
+           
 
         }
     }
