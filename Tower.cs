@@ -89,7 +89,5 @@ namespace TD
 
             return newBull;
         }
-
-        
     }
 }

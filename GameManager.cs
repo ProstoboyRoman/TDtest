@@ -48,6 +48,11 @@ namespace TD
 
             // NOTE FÜR JUSTIN if(Count % 10 == 0)  timer wird 10 mal langasemer. 
             AddEnemy();
+            if (towerlist != null)
+            {
+                towerlist[towerlist.Count - 1].BulletsList[0].MoveBullet();
+                //GameScreen.Children.Add(towerlist[towerlist.Count - 1].BulletsList[0].BulletBody);
+            }
 
         }
         public static void AddEnemy()
