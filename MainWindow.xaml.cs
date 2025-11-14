@@ -50,11 +50,21 @@ namespace TD
         public void OnTick(object sernder, EventArgs e)
         {
             EnemySpawn();
+            MoveEnemy();
             // NOTE FÜR JUSTIN if(Count % 10 == 0)  timer wird 10 mal langasemer. 
         }
 
         List<Ellipse> VisilePositions = new List<Ellipse>();
 
+
+        public void MoveEnemy()
+        {
+            foreach (var item in enemieslist)
+            {
+                item.MoveEnemy();
+
+            }
+        }
 
         public void EnemySpawn()
         {

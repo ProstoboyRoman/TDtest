@@ -13,17 +13,26 @@ namespace TD
     {
         public Ellipse elipse;
         public int currentPoint = 0; // Index des nächsten Wegpunkts
+        private double SX, SY;
 
         public Enemy(double startX, double startY)
         {
+            SX = startX;
+            SY = startY;
+
             elipse = new Ellipse
             {
                 Width = 20,
                 Height = 20,
                 Fill = Brushes.Red
             };
-            Canvas.SetLeft(elipse, startX);
-            Canvas.SetTop(elipse, startY);
+            Canvas.SetLeft(elipse, SX);
+            Canvas.SetTop(elipse, SY);
+        }
+
+        public void MoveEnemy()
+        {
+            SX += 10;
         }
     }
 }
