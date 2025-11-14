@@ -22,7 +22,7 @@ namespace TD
 
         private double X, Y;
  
-        public List<Bullets> BulletsList = new List<Bullets>();
+        //public List<Bullets> BulletsList = new List<Bullets>();
 
         private List<Bullets> BulletsList = new List<Bullets>();
 
