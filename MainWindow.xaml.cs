@@ -46,9 +46,7 @@ namespace TD
         {
             _timer.Interval = new TimeSpan(0, 0, 0, 0, _gameSpeed);
         }
-        public void EnemySpawn()
-        {
-            Enemy newEnemy = new Enemy(0, 100); // Startposition (x=0, y=100)
+       
 
         public void OnTick(object sernder, EventArgs e)
         {
@@ -71,7 +69,8 @@ namespace TD
 
         public void EnemySpawn()
         {
-            Enemy newEnemy = new Enemy(0, 100); // Startposition (x=0, y=100)
+            Enemy newEnemy = new Enemy(0, 100);
+        }// Startposition (x=0, y=100)
 
         
         private void HieddePositions()
