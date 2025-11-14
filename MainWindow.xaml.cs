@@ -46,16 +46,6 @@ namespace TD
         {
             _timer.Interval = new TimeSpan(0, 0, 0, 0, _gameSpeed);
         }
-
-        public static void OnTick(object sernder, EventArgs e)
-        {
-            EnemySpawn();
-            // NOTE FÜR JUSTIN if(Count % 10 == 0)  timer wird 10 mal langasemer. 
-        }
-
-        List<Ellipse> VisilePositions = new List<Ellipse>();
-
-
         public void EnemySpawn()
         {
             Enemy newEnemy = new Enemy(0, 100); // Startposition (x=0, y=100)
@@ -66,6 +56,16 @@ namespace TD
             // Den Enemy-Kreis zur Canvas (Spielfeld) hinzufügen
             GameScreen.Children.Add(newEnemy.elipse);
         }
+        public static void OnTick(object sernder, EventArgs e)
+        {
+            //EnemySpawn();
+            // NOTE FÜR JUSTIN if(Count % 10 == 0)  timer wird 10 mal langasemer. 
+        }
+
+        List<Ellipse> VisilePositions = new List<Ellipse>();
+
+
+        
         private void HieddePositions()
         {
             Position1.Visibility = Visibility.Hidden;
