@@ -60,7 +60,7 @@ namespace TD
                 _gameScreen.Children.Add(newEnemy.elipse);
             }
         }
-        public static List<Enemy> DrawEnemy()
+        public static List<Enemy> DrawEnemy()//gibt die enemy list zurück
         {
             return enemieslist;
         }
