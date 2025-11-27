@@ -46,11 +46,11 @@ namespace TD
                     
         }
 
-        
 
 
 
-        public Ellipse CircleBody { get; private set; }
+
+        public Image TowerSprite { get; private set; }
         public Ellipse CircleRange { get; private set; }
 
         public Tower(double x, double y)
@@ -58,14 +58,11 @@ namespace TD
             this.X = x;
             this.Y = y;
 
-            CircleBody = new Ellipse
+            TowerSprite = new Image
             {
                 Width = 50,
                 Height = 50,
-                Stroke = Brushes.Blue,
-                StrokeThickness = 2,
-                Fill = new SolidColorBrush(Colors.Black)
-
+                Source = new BitmapImage(new Uri("pack://application:,,,/Icons/Tower.png"))
             };
 
             CircleRange = new Ellipse
@@ -77,14 +74,14 @@ namespace TD
             };
 
 
-            Canvas.SetLeft(CircleBody, x - CircleBody.Width / 2);
-            Canvas.SetTop(CircleBody, y - CircleBody.Height / 2);
+            Canvas.SetLeft(TowerSprite, x - TowerSprite.Width / 2);
+            Canvas.SetTop(TowerSprite, y - TowerSprite.Height / 2);
 
             Canvas.SetLeft(CircleRange, x - CircleRange.Width / 2);
             Canvas.SetTop(CircleRange, y - CircleRange.Height / 2);
         }
 
-
+            
         public Bullets Attack()
         {
             Bullets newBull = new Bullets(X,Y);

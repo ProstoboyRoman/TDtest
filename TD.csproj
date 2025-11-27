@@ -133,5 +133,23 @@
   <ItemGroup>
     <Resource Include="TowerIcon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Feld.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\pngtree-goblin-with-sword-3d-design-png-image_15718225.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Enyme.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\kindpng_7297780.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\Tower.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\pngwing.com%281%29.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
