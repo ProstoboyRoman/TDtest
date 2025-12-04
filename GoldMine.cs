@@ -12,8 +12,9 @@ namespace TD
     public class GoldMine
     {
         private int Price = 10;
-        private int Production = 5;
-        private int ProductionDelay = 5;
+        public int Production = 5;
+        public int ProductionDelay = 5;
+        public int AktuellesGold = 0;
 
 
         public Ellipse RangeCircle { get; private set; }

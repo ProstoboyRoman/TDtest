@@ -1,216 +1,273 @@
-﻿    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.Remoting.Channels;
-    using System.Security.Policy;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Navigation;
-    using System.Windows.Shapes;
-    using System.Windows.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Shapes;
+using System.Windows.Threading;
 
-    namespace TD
+namespace TD
+{
+    /// <summary>
+    /// Hauptfenster für das Tower-Defense-Spiel
+    /// </summary>
+    public partial class MainWindow : Window
     {
-        /// <summary>
-        /// Interaktionslogik für MainWindow.xaml
-        /// </summary>
-        public partial class MainWindow : Window
+        // Timer für das Spiel
+        private readonly DispatcherTimer _timer;
+
+        // Spielgeschwindigkeit
+        private static int _gameSpeed = 20;
+
+        // Gold
+        private int _gesamtGold = 0;
+        private int _goldCounter = 100;
+
+        // Spawn-Counter für Gegner
+        private int _spawnCounter = 0;
+
+        private int BulletZeit = 0;
+
+        // Listen für Gegner, Türme un  d Goldminen
+        public List<Enemy> EnemiesList= new List<Enemy>();
+        public List<Tower> TowerList = new List<Tower>();
+        public List<GoldMine> GoldMines = new List<GoldMine>();
+
+        // Sichtbare Positionen für Turm-/Goldplatzierung
+        private List<Ellipse> _visiblePositions = new List<Ellipse>();
+
+        private List<Bullets> _bulletsList = new List<Bullets>();
+
+        public MainWindow()
         {
-            public MainWindow()
-            {
-                InitializeComponent();
-                HieddePositions();
-                _timer = new DispatcherTimer();
-                _timer.Interval = TimeSpan.FromMilliseconds(50); // alle 5 Sekunden
+            InitializeComponent();
 
+            HidePositions();
+                
+            // Timer initialisieren
+            _timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMilliseconds(10) // Tick alle 10ms
+            };
             _timer.Tick += OnTick;
-                _timer.Start();
-            }
-
-            private static DispatcherTimer _timer;
-            private static int _gameSpeed = 20;
-
-             public List<Enemy> enemieslist = new List<Enemy>();
-             public List<Tower> towerlist = new List<Tower>();
-             public List<GoldMine> goldMines = new List<GoldMine>();
-             private int spawnCounter = 0;
-
-        Enemy enemy = new Enemy(100,100);
-            private static void SpeedManager(int pDeltaSpeed)
-            {
-                _timer.Interval = new TimeSpan(0, 0, 0, 0, _gameSpeed);
-            }
-       
-
-            public void OnTick(object sernder, EventArgs e)
-            {
-            spawnCounter++;
-            if (spawnCounter >= 20) // Alle 20 Ticks
-            {
-                EnemySpawn();
-                spawnCounter = 0;
-            }
-
-            foreach (var enemy in enemieslist)
-             {
-                enemy.MoveEnemy(GameScreen); // Canvas übergeben
-            }
-             // NOTE FÜR JUSTIN if(Count % 10 == 0)  timer wird 10 mal langasemer. 
+            _timer.Start();
         }
 
-            List<Ellipse> VisilePositions = new List<Ellipse>();
+        /// <summary>
+        /// Spiel-Loop: Gegner bewegen, Gold produzieren, Gegner spawnen
+        /// </summary>
+        private void OnTick(object sender, EventArgs e)
+        {
+            _spawnCounter++;
 
-
-            public void EnemySpawn()
+            // Gegner spawnen alle 50 Ticks
+            if (_spawnCounter >= 100)
             {
-            // Maximal 3 Enemies gleichzeitig
-            if (enemieslist.Count < 3)
+                SpawnEnemy();
+                _spawnCounter = 0;
+            }
+
+            ProduceGold();
+
+            // Gegner bewegen
+            foreach (var enemy in EnemiesList)
+            {
+                enemy.MoveEnemy(GameScreen);
+            }
+
+            // Tower schießen, wenn Gegner in Reichweite
+            foreach (var tower in TowerList)
+            {    
+
+                foreach (var enemy in EnemiesList)
+                {
+                    // Abstand Mittelpunkt Tower zu Gegner
+                    double towerX = Canvas.GetLeft(tower.TowerSprite) + tower.TowerSprite.Width / 2;
+                    double towerY = Canvas.GetTop(tower.TowerSprite) + tower.TowerSprite.Height / 2;
+
+                    double enemyX = Canvas.GetLeft(enemy.sprite) + enemy.sprite.Width / 2;
+                    double enemyY = Canvas.GetTop(enemy.sprite) + enemy.sprite.Height / 2;
+
+                    double distance = Math.Sqrt(Math.Pow(enemyX - towerX, 2) + Math.Pow(enemyY - towerY, 2));
+
+                    if (distance <= 100) // Tower.Range (hardcoded hier)
+                    {
+                        if(BulletZeit >= 50)
+                        {
+                          // Gegner in Range -> Bullet erzeugen
+                          Bullets newBullet = new Bullets(towerX, towerY);
+                         _bulletsList.Add(newBullet);
+                         GameScreen.Children.Add(newBullet.BulletBody);
+                            BulletZeit = 0;
+                          break; // nur eine Bullet pro Tick pro Tower
+                        }
+                        else
+                        {
+                            BulletZeit++;
+                        }
+                             
+                        
+                        
+                    }
+                }
+            }
+
+            // Alle Bullets bewegen
+            foreach (var bullet in _bulletsList)
+            {
+                bullet.MoveBullet();
+            }
+        }
+            // TODO: Tower schießen lassen (Bullets erzeugen und bewegen)
+            // TODO: Kollisionsabfrage Bullets -> Gegner
+        
+
+        /// <summary>
+        /// Goldproduktion für Goldminen
+        /// </summary>
+        private void ProduceGold()
+        {
+            if (_goldCounter <= 0)
+            {
+                foreach (var mine in GoldMines)
+                {
+                    mine.AktuellesGold += mine.Production; // GoldMine eigenes Gold erhöhen
+                    _gesamtGold += mine.Production;        // Gesamtgold erhöhen
+                }
+
+                // TextBlock aktualisieren
+                Gold.Text = $"Gold = {_gesamtGold}";
+
+                _goldCounter = 100;
+            }
+            else
+            {
+                _goldCounter--;
+            }
+        }
+
+        /// <summary>
+        /// Gegner spawnen
+        /// </summary>
+        private void SpawnEnemy()
+        {
+            if (EnemiesList.Count < 8)
             {
                 Enemy newEnemy = new Enemy(0, 307);
-                enemieslist.Add(newEnemy);
-                GameScreen.Children.Add(newEnemy.sprite);
-            }
-        }// Startposition (x=0, y=100)
-            
-        
-            private void HieddePositions()
-            {
-                Position1.Visibility = Visibility.Hidden;
-                Position2.Visibility = Visibility.Hidden;
-                Position3.Visibility = Visibility.Hidden;
-                Position4.Visibility = Visibility.Hidden;
-                Position5.Visibility = Visibility.Hidden;
-                Position6.Visibility = Visibility.Hidden;
-            }
-            private void ShowPositions()
-            {
-                Position1.Visibility = Visibility.Visible;
-                Position2.Visibility = Visibility.Visible;
-                Position3.Visibility = Visibility.Visible;
-                Position4.Visibility = Visibility.Visible;
-                Position5.Visibility = Visibility.Visible;  
-                Position6.Visibility = Visibility.Visible;
-            }
-            
+                EnemiesList.Add(newEnemy);
 
-
-            private void SowCurrrentPositions()
-            {
-                foreach (var Pos in VisilePositions)
-                {
-                    Pos.Visibility = Visibility;
-                }
-            }
-
-            //
-            // --------------- EVENTS --------------------
-            //
-        
-
-
-            private void TowerBTN_Click(object sender, RoutedEventArgs e)
-            {
-                if(TowerBTN.Content != "Cancel")
-                {
-                    ShowPositions();
-                    TowerBTN.Content = "Cancel";
-                }
-                else
-                {
-                    HieddePositions();
-                    TowerBTN.Content = "Tower";
-                }
-                
-            }
-
-            private void GoldMineBTN_Click(object sender, RoutedEventArgs e)
-            {
-                if(GoldMineBTN.Content != "Cancel")
-                {
-                    ShowPositions();
-                    GoldMineBTN.Content = "Cancel";
-                }
-                else
-                {
-                    HieddePositions();
-                    GoldMineBTN.Content = "Gold Mine";
-                }
-            
-            }
-
-            //
-            // ------------------ Position -----------------------
-            //
-
-            private void Position_MouseEnter(object sender, MouseEventArgs e)
-            {
-                Ellipse ellipse = sender as Ellipse;
-                if (TowerBTN.Content == "Cancel")
-                {
-                
-                    ellipse.Stroke = new SolidColorBrush(Colors.Red);
-                }
-
-                if (GoldMineBTN.Content == "Cancel")
-                {
-                    ellipse.Stroke = new SolidColorBrush(Colors.DarkOrange);
-                }
-
-            }
-
-            private void Position_MouseLeave(object sender, MouseEventArgs e)
-            {
-                Ellipse ellipse = sender as Ellipse;
-                ellipse.Stroke = new SolidColorBrush(Colors.Black);
-            }
-
-            private void Position_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-            {
-                Ellipse ellipse = sender as Ellipse;
-
-
-                HieddePositions();
-
-            
-
-                // Mittelpunkt der Ellipse berechnen
-                double x = Canvas.GetLeft(ellipse) + ellipse.Width / 2;
-                double y = Canvas.GetTop(ellipse) + ellipse.Height / 2;
-
-                if (TowerBTN.Content == "Cancel")
-                {
-                    // Neuen Tower erstellen
-                    Tower newTower = new Tower(x, y);
-                    GameScreen.Children.Add(newTower.TowerSprite); // PNG statt Ellipse
-                    GameScreen.Children.Add(newTower.CircleRange);
-
-                   //GameScreen.Children.Add(newTower.Attack().BulletBody);
-
-                    towerlist.Add(newTower);
-                }
-                else if (GoldMineBTN.Content == "Cancel")
-                {
-                    GoldMine newGoldmine = new GoldMine(x, y);
-                    GameScreen.Children.Add(newGoldmine.RangeCircle);
-                    goldMines.Add(newGoldmine);
-                }
-                GoldMineBTN.Content = "Gold Mine";
-                TowerBTN.Content = "Tower";
-            }
-            private void StartBTN1_Click(object sender, RoutedEventArgs e)
-            {
-                // Zum Test: Einen Enemy hinzufügen
-                //Enemy newEnemy = new Enemy(0, 100); // Startposition (x=0, y=100)
-
-           
-
+                if (!GameScreen.Children.Contains(newEnemy.sprite))
+                    GameScreen.Children.Add(newEnemy.sprite);
             }
         }
+
+        #region Positionsverwaltung (Turm-/Goldminenplatzierung)
+
+        private void HidePositions()
+        {
+            Position1.Visibility = Visibility.Hidden;
+            Position2.Visibility = Visibility.Hidden;
+            Position3.Visibility = Visibility.Hidden;
+            Position4.Visibility = Visibility.Hidden;
+            Position5.Visibility = Visibility.Hidden;
+            Position6.Visibility = Visibility.Hidden;
+        }
+
+        private void ShowPositions()
+        {
+            Position1.Visibility = Visibility.Visible;
+            Position2.Visibility = Visibility.Visible;
+            Position3.Visibility = Visibility.Visible;
+            Position4.Visibility = Visibility.Visible;
+            Position5.Visibility = Visibility.Visible;
+            Position6.Visibility = Visibility.Visible;
+        }
+
+        private void Position_MouseEnter(object sender, MouseEventArgs e)
+        {
+            if (sender is Ellipse ellipse)
+            {
+                if (TowerBTN.Content.ToString() == "Cancel")
+                    ellipse.Stroke = Brushes.Red;
+
+                if (GoldMineBTN.Content.ToString() == "Cancel")
+                    ellipse.Stroke = Brushes.DarkOrange;
+            }
+        }
+
+        private void Position_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (sender is Ellipse ellipse)
+                ellipse.Stroke = Brushes.Black;
+        }
+
+        private void Position_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!(sender is Ellipse ellipse)) return;
+
+            HidePositions();
+
+            // Mittelpunkt der Ellipse berechnen
+            double x = Canvas.GetLeft(ellipse) + ellipse.Width / 2;
+            double y = Canvas.GetTop(ellipse) + ellipse.Height / 2;
+
+            if (TowerBTN.Content.ToString() == "Cancel")
+            {
+                // Neuen Turm erstellen
+                Tower newTower = new Tower(x, y);
+                GameScreen.Children.Add(newTower.TowerSprite);
+                GameScreen.Children.Add(newTower.CircleRange);
+
+                TowerList.Add(newTower);
+
+                // TODO: Tower Angriff/Funktionalität hinzufügen
+            }
+            else if (GoldMineBTN.Content.ToString() == "Cancel")
+            {
+                GoldMine newGoldMine = new GoldMine(x, y);
+                GameScreen.Children.Add(newGoldMine.RangeCircle);
+                GoldMines.Add(newGoldMine);
+            }
+
+            GoldMineBTN.Content = "Gold Mine";
+            TowerBTN.Content = "Tower";
+        }
+
+        private void TowerBTN_Click(object sender, RoutedEventArgs e)
+        {
+            if (TowerBTN.Content.ToString() != "Cancel")
+            {
+                ShowPositions();
+                TowerBTN.Content = "Cancel";
+            }
+            else
+            {
+                HidePositions();
+                TowerBTN.Content = "Tower";
+            }
+        }
+
+        private void GoldMineBTN_Click(object sender, RoutedEventArgs e)
+        {
+            if (GoldMineBTN.Content.ToString() != "Cancel")
+            {
+                ShowPositions();
+                GoldMineBTN.Content = "Cancel";
+            }
+            else
+            {
+                HidePositions();
+                GoldMineBTN.Content = "Gold Mine";
+            }
+        }
+
+        #endregion
+
+        private void StartBTN1_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO: Start/Wellen-Mechanik
+        }
     }
+}

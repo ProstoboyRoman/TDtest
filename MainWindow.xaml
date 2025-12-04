@@ -20,6 +20,16 @@
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
+
+        <TextBlock x:Name="Gold"
+                   Grid.Column="1"
+                   Grid.Row="0"
+                   Text="Gold = 0"
+                    FontSize="25"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"
+           Foreground="White"/>
+
         <Canvas x:Name="GameScreen" Grid.Column="1" Grid.Row="1">
             <Canvas.Background>
                 <ImageBrush ImageSource="/Icons/Feld.png" Stretch="Fill"/>

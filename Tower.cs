@@ -18,38 +18,9 @@ namespace TD
         private int Damage;
         private int AttackSpeed;
         private int Range = 100;
-        private int Lvl = 1;
 
         private double X, Y;
- 
-        public List<Bullets> BulletsList = new List<Bullets>();
-
-        //private List<Bullets> BulletsList = new List<Bullets>();
-
-        public int damage
-        {
-            set
-            {
-                Damage = value;
-                if (Damage < 0) 
-                    Damage = 0; // z.b schaden geht nicht unter 0
-            }
-        }
-        public int attackspeed
-        {
-            set 
-            {
-                AttackSpeed = value;
-                if (AttackSpeed < 1) 
-                    AttackSpeed = 1; // mindestwert muus 1
-            }
-                    
-        }
-
-
-
-
-
+      
         public Image TowerSprite { get; private set; }
         public Ellipse CircleRange { get; private set; }
 
@@ -82,12 +53,6 @@ namespace TD
         }
 
             
-        public Bullets Attack()
-        {
-            Bullets newBull = new Bullets(X,Y);
-            BulletsList.Add(newBull);
-
-            return newBull;
-        }
+       
     }
 }
